@@ -1,0 +1,14 @@
+--- a/arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts
++++ b/arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts
+@@ -194,6 +200,11 @@
+ 	pinctrl-0 = <&ir_pins_a>;
+ 	status = "okay";
+ };
++
++&i2c0 {
++	bias-pull-up;
++	status = "okay";
++};
+ 
+ &spi0 {
+ 	/* Disable SPI NOR by default: it optional on Orange Pi Zero boards */
