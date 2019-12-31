@@ -1,0 +1,32 @@
+--- a/arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts
++++ b/arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts
+@@ -125,6 +160,14 @@
+ &ehci1 {
+ 	status = "okay";
+ };
++
++&ehci2 {
++	status = "okay";
++};
++
++&ehci3 {
++	status = "okay";
++};
+ 
+ &emac {
+ 	phy-handle = <&int_mii_phy>;
+@@ -167,6 +190,14 @@
+ &ohci1 {
+ 	status = "okay";
+ };
++
++&ohci2 {
++	status = "okay";
++};
++
++&ohci3 {
++	status = "okay";
++};
+ 
+ &codec {
+ 	allwinner,audio-routing = "Line Out", "LINEOUT", "MIC1", "Mic", "Mic", "MBIAS";
