@@ -25,15 +25,49 @@ $(eval $(call KernelPackage,rtc-sunxi))
 define KernelPackage/sunxi-ir
     SUBMENU:=$(OTHER_MENU)
     TITLE:=Sunxi SoC built-in IR support (A20)
-    DEPENDS:=@TARGET_sunxi +kmod-input-core
+    DEPENDS:=@TARGET_sunxi +kmod-input-core +evtest
     $(call AddDepends/rtc)
     KCONFIG:= \
 	CONFIG_MEDIA_SUPPORT=y \
 	CONFIG_MEDIA_RC_SUPPORT=y \
 	CONFIG_RC_DEVICES=y \
-	CONFIG_IR_SUNXI
-    FILES:=$(LINUX_DIR)/drivers/media/rc/sunxi-cir.ko
-    AUTOLOAD:=$(call AutoLoad,50,sunxi-cir)
+	CONFIG_IR_SUNXI \
+	CONFIG_RC_DECODERS=y \
+	CONFIG_RC_CORE=m \
+	CONFIG_RC_MAP=m \
+	CONFIG_LIRC=n \
+	CONFIG_LIRC_STAGING=n \
+	CONFIG_IR_NEC_DECODER=m \
+	CONFIG_IR_RC5_DECODER=m \
+	CONFIG_IR_RC6_DECODER=m \
+	CONFIG_IR_JVC_DECODER=m \
+	CONFIG_IR_SONY_DECODER=m \
+	CONFIG_IR_SANYO_DECODER=m \
+	CONFIG_IR_SHARP_DECODER=m \
+	CONFIG_IR_MCE_KBD_DECODER=m \
+	CONFIG_IR_XMP_DECODER=m \
+	CONFIG_IR_IMON_DECODER=m \
+	CONFIG_IR_IMON_RAW=m \
+	CONFIG_IR_SPI=m \
+	CONFIG_IR_PWM_TX=m \
+	CONFIG_IR_SERIAL=m \
+	CONFIG_IR_SERIAL_TRANSMITTER=y \
+	CONFIG_IR_SIR=m \
+	CONFIG_IR_GPIO_TX=m
+    FILES:= \
+	$(LINUX_DIR)/drivers/media/rc/sunxi-cir.ko \
+	$(LINUX_DIR)/drivers/media/rc/rc-core.ko \
+	$(LINUX_DIR)/drivers/media/rc/ir-nec-decoder.ko \
+	$(LINUX_DIR)/drivers/media/rc/ir-rc5-decoder.ko \
+	$(LINUX_DIR)/drivers/media/rc/ir-rc6-decoder.ko \
+	$(LINUX_DIR)/drivers/media/rc/ir-jvc-decoder.ko \
+	$(LINUX_DIR)/drivers/media/rc/ir-sony-decoder.ko \
+	$(LINUX_DIR)/drivers/media/rc/ir-sanyo-decoder.ko \
+	$(LINUX_DIR)/drivers/media/rc/ir-sharp-decoder.ko \
+	$(LINUX_DIR)/drivers/media/rc/ir-mce_kbd-decoder.ko \
+	$(LINUX_DIR)/drivers/media/rc/ir-xmp-decoder.ko \
+	$(LINUX_DIR)/drivers/media/rc/sir_ir.ko
+    AUTOLOAD:=$(call AutoLoad,80,sunxi-cir ir-nec-decoder)
 endef
 
 define KernelPackage/sunxi-ir/description
