@@ -112,7 +112,10 @@ TARGET_DEVICES += mele_m9
 define Device/xunlong_orangepi-zero
   DEVICE_VENDOR := Xunlong
   DEVICE_MODEL := Orange Pi Zero
-  DEVICE_PACKAGES:=kmod-rtc-sunxi kmod-xradio
+  DEVICE_PACKAGES:=kmod-rtc-sunxi kmod-xradio \
+	kmod-sound-core \
+	kmod-sound-soc-sun4i-codec \
+	kmod-sound-soc-sun8i-codec-analog
   SOC := sun8i-h2-plus
 endef
 
