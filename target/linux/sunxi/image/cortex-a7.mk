@@ -124,6 +124,21 @@ endef
 TARGET_DEVICES += xunlong_orangepi-zero
 
 
+define Device/xunlong_orangepi-zero-lts
+  DEVICE_VENDOR := Xunlong
+  DEVICE_MODEL := Orange Pi Zero Lts
+  DEVICE_PACKAGES:=kmod-rtc-sunxi kmod-xradio \
+	kmod-thermal-sunxi kmod-sun8i_ths kmod-sun4i-gpadc-iio \
+	kmod-cpufreq-dt \
+	kmod-sound-core \
+	kmod-sound-soc-sun4i-codec \
+	kmod-sound-soc-sun8i-codec-analog
+  SOC := sun8i-h2-plus
+endef
+
+TARGET_DEVICES += xunlong_orangepi-zero-lts
+
+
 define Device/xunlong_orangepi-r1
   DEVICE_VENDOR := Xunlong
   DEVICE_MODEL := Orange Pi R1
