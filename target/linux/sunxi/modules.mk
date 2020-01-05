@@ -181,3 +181,123 @@ define KernelPackage/sound-soc-sun4i-spdif/description
 endef
 
 $(eval $(call KernelPackage,sound-soc-sun4i-spdif))
+
+
+define KernelPackage/thermal-sunxi
+  SUBMENU:=Sunxi Thermal
+  TITLE:=Generic Thermal sysfs driver
+  DEPENDS:=@TARGET_sunxi +kmod-hwmon-core
+  KCONFIG:= \
+	CONFIG_THERMAL \
+	CONFIG_THERMAL_DEFAULT_GOV_USER_SPACE=n \
+	CONFIG_THERMAL_GOV_USER_SPACE=n \
+	CONFIG_THERMAL_EMULATION=n
+  FILES:= \
+	$(LINUX_DIR)/drivers/thermal/thermal_sys.ko
+  AUTOLOAD:=$(call AutoProbe,thermal_sys)
+endef
+
+define KernelPackage/thermal/description
+ Generic Thermal Sysfs driver offers a generic mechanism for thermal
+ management. Usually it's made up of one or more thermal zone and cooling
+ device.
+endef
+
+$(eval $(call KernelPackage,thermal-sunxi))
+
+
+define KernelPackage/sun4i-gpadc-iio
+  SUBMENU:=Sunxi Thermal
+  TITLE:=Generic sun4i-gpadc-iio driver
+  DEPENDS:=@TARGET_sunxi +kmod-thermal-sunxi
+  KCONFIG:=CONFIG_SUN4I_GPADC=y
+  FILES:= \
+	$(LINUX_DIR)/drivers/iio/adc/sun4i-gpadc-iio.ko
+  AUTOLOAD:=$(call AutoProbe,sun4i-gpadc-iio)
+endef
+
+$(eval $(call KernelPackage,sun4i-gpadc-iio))
+
+
+define KernelPackage/sun8i_ths
+  SUBMENU:=Sunxi Thermal
+  TITLE:=Generic SUN8I_THS driver
+  DEPENDS:=@TARGET_sunxi +kmod-thermal-sunxi
+  KCONFIG:=CONFIG_SUN8I_THS=m
+  FILES:=$(LINUX_DIR)/drivers/thermal/sun8i_ths.ko
+  AUTOLOAD:=$(call AutoProbe,sun8i_ths)
+endef
+
+define KernelPackage/thermal/description
+ Generic SUN8I_THS driver offers a generic mechanism for thermal
+ management. Usually it's made up of one or more thermal zone and cooling
+ device.
+endef
+
+$(eval $(call KernelPackage,sun8i_ths))
+
+
+define KernelPackage/sun50i_h6_ths
+  SUBMENU:=Sunxi Thermal
+  TITLE:=Generic SUN50I_H6_THS driver
+  DEPENDS:=@TARGET_sunxi +kmod-thermal-sunxi
+  KCONFIG:=CONFIG_SUN50I_H6_THS=m
+  FILES:=$(LINUX_DIR)/drivers/thermal/sun50i_h6_ths.ko
+  AUTOLOAD:=$(call AutoProbe,sun50i_h6_ths)
+endef
+
+define KernelPackage/thermal/description
+ Generic SUN50I_H6_THS driver offers a generic mechanism for thermal
+ management. Usually it's made up of one or more thermal zone and cooling
+ device.
+endef
+
+$(eval $(call KernelPackage,sun50i_h6_ths))
+
+
+define KernelPackage/thermal-generic-adc
+  SUBMENU:=Sunxi Thermal
+  TITLE:=Generic GENERIC_ADC_THERMAL driver
+  DEPENDS:=@TARGET_sunxi +kmod-thermal-sunxi
+  KCONFIG:=CONFIG_GENERIC_ADC_THERMAL=m
+  FILES:=$(LINUX_DIR)/drivers/thermal/thermal-generic-adc.ko
+  AUTOLOAD:=$(call AutoProbe,thermal-generic-adc)
+endef
+
+$(eval $(call KernelPackage,thermal-generic-adc))
+
+
+define KernelPackage/arm_big_little
+  SUBMENU:=$(OTHER_MENU)
+  TITLE:=Generic arm_big_little driver
+  DEPENDS:=@TARGET_sunxi +kmod-thermal-sunxi
+  KCONFIG:=CONFIG_ARM_BIG_LITTLE_CPUFREQ=y
+  FILES:=$(LINUX_DIR)/drivers/cpufreq/arm_big_little.ko
+  AUTOLOAD:=$(call AutoProbe,arm_big_little)
+endef
+
+$(eval $(call KernelPackage,arm_big_little))
+
+
+define KernelPackage/arm_big_little_dt
+  SUBMENU:=$(OTHER_MENU)
+  TITLE:=This enables the Generic CPUfreq driver for ARM big.LITTLE platforms.
+  DEPENDS:=@TARGET_sunxi +kmod-thermal-sunxi +kmod-arm_big_little
+  KCONFIG:=CONFIG_ARM_DT_BL_CPUFREQ=y
+  FILES:=$(LINUX_DIR)/drivers/cpufreq/arm_big_little_dt.ko
+  AUTOLOAD:=$(call AutoProbe,arm_big_little_dt)
+endef
+
+$(eval $(call KernelPackage,arm_big_little_dt))
+
+
+define KernelPackage/cpufreq-dt
+  SUBMENU:=$(OTHER_MENU)
+  TITLE:=Generic cpufreq-dt driver
+  DEPENDS:=@TARGET_sunxi +kmod-thermal-sunxi
+  KCONFIG:=CONFIG_CPUFREQ_DT_PLATDEV=y
+  FILES:=$(LINUX_DIR)/drivers/cpufreq/cpufreq-dt.ko
+  AUTOLOAD:=$(call AutoProbe,cpufreq-dt)
+endef
+
+$(eval $(call KernelPackage,cpufreq-dt))

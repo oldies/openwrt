@@ -113,6 +113,7 @@ define Device/xunlong_orangepi-zero
   DEVICE_VENDOR := Xunlong
   DEVICE_MODEL := Orange Pi Zero
   DEVICE_PACKAGES:=kmod-rtc-sunxi kmod-xradio \
+	kmod-thermal-sunxi kmod-sun8i_ths kmod-sun4i-gpadc-iio \
 	kmod-sound-core \
 	kmod-sound-soc-sun4i-codec \
 	kmod-sound-soc-sun8i-codec-analog
