@@ -301,3 +301,30 @@ define KernelPackage/cpufreq-dt
 endef
 
 $(eval $(call KernelPackage,cpufreq-dt))
+
+
+define KernelPackage/sunxi-i2c
+  SUBMENU:=I2C support
+  TITLE:=Generic sunxi-i2c driver
+  DEPENDS:=@TARGET_sunxi +kmod-i2c-core
+  KCONFIG:=CONFIG_I2C_SUN6I_P2WI=y \
+	CONFIG_I2C_MV64XXX=y \
+	CONFIG_I2C_BOARDINFO=y \
+	CONFIG_I2C_CHARDEV=y \
+	CONFIG_I2C_COMPAT=y \
+	CONFIG_I2C_HELPER_AUTO=y
+  FILES:= \
+	$(LINUX_DIR)/drivers/i2c/busses/i2c-sun6i-p2wi.ko \
+	$(LINUX_DIR)/drivers/i2c/busses/i2c-mv64xxx.ko
+  AUTOLOAD:=$(call AutoProbe,i2c-sun6i-p2wi i2c-mv64xxx)
+endef
+
+define KernelPackage/sunxi-i2c/description
+ If you say yes to this option, support will be included for the
+ I2C interface from Allwinner Technology sunxi platform.
+ 
+ This driver can also be built as a module. If so, the module
+ will be called i2c-sun6i-p2wi, i2c-mv64xxx.
+endef
+
+$(eval $(call KernelPackage,sunxi-i2c))
