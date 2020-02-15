@@ -8,9 +8,9 @@ PKG_LICENSE_FILES:=
 
 PKG_SOURCE_URL:=https://github.com/openwrt/mt76
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_DATE:=2019-12-27
-PKG_SOURCE_VERSION:=4cb1195a153087d84995f410285c8ecb587b1456
-PKG_MIRROR_HASH:=921533be9935155cdde6aaa71cd6f0de2b03948da432c5be11b33756dcffb0c9
+PKG_SOURCE_DATE:=2020-02-02
+PKG_SOURCE_VERSION:=721673759d8229a42ab39a9a7cba15261f1dfcf9
+PKG_MIRROR_HASH:=67631bbe0ec9af6e4f255841457cde706dbbde21092c9485e7b0cc222e54e6d9
 
 PKG_MAINTAINER:=Felix Fietkau <nbd@nbd.name>
 PKG_BUILD_PARALLEL:=1
@@ -192,6 +192,10 @@ ifdef CONFIG_PACKAGE_kmod-mt7603
 endif
 ifdef CONFIG_PACKAGE_kmod-mt7615e
   PKG_MAKE_FLAGS += CONFIG_MT7615E=m
+  ifdef CONFIG_TARGET_mediatek_mt7622
+    PKG_MAKE_FLAGS += CONFIG_MT7622_WMAC=y
+    NOSTDINC_FLAGS += -DCONFIG_MT7622_WMAC
+  endif
 endif
 
 define Build/Compile
@@ -251,6 +255,9 @@ define KernelPackage/mt7615e/install
 		$(PKG_BUILD_DIR)/firmware/mt7615_cr4.bin \
 		$(PKG_BUILD_DIR)/firmware/mt7615_n9.bin \
 		$(PKG_BUILD_DIR)/firmware/mt7615_rom_patch.bin \
+		$(if $(CONFIG_TARGET_mediatek_mt7622), \
+			$(PKG_BUILD_DIR)/firmware/mt7622_n9.bin \
+			$(PKG_BUILD_DIR)/firmware/mt7622_rom_patch.bin) \
 		$(1)/lib/firmware/mediatek
 endef
 
